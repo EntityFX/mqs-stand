@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+
+  mqs-aedes:
+    container_name: mqs-aedes
+    image: moscajs/aedes:latest
+    restart: always
+    ports:
+      - 5883:5883
+    stop_signal: SIGINT
+    command: --config /data/config.js # add here the options to pass to aedes
+    volumes:
+      - ./mqs-aedes/:/data # map the local folder to aedes
+    #depends_on:
+    ##  - mongo
+    networks:
+      - mqs-net
+
+  mqs-mosquitto:
+    image: eclipse-mosquitto
+    container_name: mqs-mosquitto
+    ports:
+      - "1883:1883" #default mqtt port
+    volumes:
+      - ./mqs-mosquitto/config:/mosquitto/config
+      - ./mqs-mosquitto/data:/mosquitto/data:rw
+      - ./mqs-mosquitto/log:/mosquitto/log:rw
+
+
+  mqs-node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Moscow
+    ports:
+      - "1880:1880"
+    networks:
+      - mqs-net
+    volumes:
+      - mqs-node-red-data:/data
+
+
+volumes:
+  mqs-node-red-data:
+  mqs-mosquitto-config:
+  mqs-mosquitto-data:
+  mqs-mosquitto-log:
+
+networks:
+  mqs-net: null
