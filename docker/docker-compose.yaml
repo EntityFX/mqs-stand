@@ -25,7 +25,35 @@ services:
       - ./mqs-mosquitto/config:/mosquitto/config
       - ./mqs-mosquitto/data:/mosquitto/data:rw
       - ./mqs-mosquitto/log:/mosquitto/log:rw
+    networks:
+      - mqs-net
 
+  mqs-influxdb:
+    image: influxdb:2.7
+    container_name: mqs-influxdb
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: superuser
+      DOCKER_INFLUXDB_INIT_PASSWORD: Passw0rd!
+      DOCKER_INFLUXDB_INIT_ORG: MyOrg
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: N3Z_uUDSQ61qVp93K5dNzH3rbNcKxtphDLrjfS_DcX2cdTr3nR2pOlixGCx6HQ8VI66nqnyztOlPFoWFXoe62Q==
+      DOCKER_INFLUXDB_INIT_BUCKET: NBomber
+    ports:
+      - 8086:8086
+    networks:
+      - mqs-net
+    volumes:
+    - mqs-influxdb-data:/var/lib/influxdb2
+
+  mqs-grafana:
+    image: grafana/grafana-oss:9.5.3
+    container_name: mqs-grafana
+    ports:
+      - 3000:3000
+    networks:
+      - mqs-net
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
 
   mqs-node-red:
     image: nodered/node-red:latest
@@ -44,6 +72,7 @@ volumes:
   mqs-mosquitto-config:
   mqs-mosquitto-data:
   mqs-mosquitto-log:
+  mqs-influxdb-data:
 
 networks:
   mqs-net: null
