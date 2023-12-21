@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+
+  mqs-mosquitto:
+    image: eclipse-mosquitto
+    container_name: mqs-mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mqs-mosquitto/config:/mosquitto/config
+      - ./mqs-mosquitto/data:/mosquitto/data:rw
+      - ./mqs-mosquitto/log:/mosquitto/log:rw
+    networks:
+      - mqs-net
+
+volumes:
+  mqs-mosquitto-config:
+  mqs-mosquitto-data:
+  mqs-mosquitto-log:
+
+networks:
+  mqs-net: null
