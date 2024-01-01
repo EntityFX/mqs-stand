@@ -2,7 +2,7 @@ module.exports = {
   // SERVERS
   protos: ['tcp'],
   host: '0.0.0.0',
-  port: 5883,
+  port: 1883,
   wsPort: 3000,
   wssPort: 4000,
   tlsPort: 8883,
