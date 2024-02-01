@@ -14,6 +14,17 @@ services:
       - EMQX_LISTENERS__TCP__DEFAULT__BIND=1883
       - EMQX_HOST=0.0.0.0
 
+  mqs-node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+
 volumes:
   mqs-activemq:
     driver: local
