@@ -37,7 +37,7 @@ module.exports = {
     }
   },*/
   // LOGGER
-  verbose: true,
+  verbose: false,
   veryVerbose: false,
   noPretty: false
 }

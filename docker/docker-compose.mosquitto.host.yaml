@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  mqs-mosquitto:
+    image: eclipse-mosquitto
+    container_name: mqs-mosquitto
+    restart: always
+    volumes:
+      - ./mqs-mosquitto/config:/mosquitto/config
+      - ./mqs-mosquitto/data:/mosquitto/data:rw
+      - ./mqs-mosquitto/log:/mosquitto/log:rw
+    build:
+      network: host
+    network_mode: host
+
+volumes:
+  mqs-mosquitto-config:
+  mqs-mosquitto-data:
+  mqs-mosquitto-log:

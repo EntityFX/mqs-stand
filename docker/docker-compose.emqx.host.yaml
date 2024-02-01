@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  mqs-emqx:
+    image: emqx:latest
+    container_name: mqs-emqx
+    restart: always
+    healthcheck:
+      test: ["CMD", "/opt/emqx/bin/emqx", "ctl", "status"]
+      interval: 5s
+      timeout: 25s
+      retries: 5
+    network_mode: host
+    environment:
+      - EMQX_LISTENERS__TCP__DEFAULT__BIND=1883
+      - EMQX_HOST=0.0.0.0
+
+volumes:
+  mqs-activemq:
+    driver: local

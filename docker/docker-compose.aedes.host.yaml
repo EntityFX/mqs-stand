@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  mqs-aedes:
+    container_name: mqs-aedes
+    image: moscajs/aedes:latest
+    restart: always
+    stop_signal: SIGINT
+    command: --config /data/config.js # add here the options to pass to aedes
+    volumes:
+      - ./mqs-aedes/:/data # map the local folder to aedes
+    network_mode: host
