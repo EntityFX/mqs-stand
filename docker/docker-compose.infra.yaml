@@ -63,4 +63,4 @@ volumes:
   mqs-influxdb-data:
 
 networks:
-  mqs-net: null
+  mqs-infra: null
