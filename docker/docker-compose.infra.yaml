@@ -26,7 +26,7 @@ services:
     networks:
       - mqs-infra
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana:/var/lib/grafana
 
   mqs-node-red:
     image: nodered/node-red:latest
@@ -48,7 +48,7 @@ services:
       - ./mqs-prometheus:/etc/prometheus/
     hostname: prometheus
     command:
-      - --config.file=/etc/prometheus/prometheus.yml
+      - --config.file=/etc/prometheus/prometheus.yaml
     ports:
       - 9090:9090
     restart: unless-stopped
