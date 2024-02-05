@@ -16,17 +16,17 @@ services:
       - mqs-infra
     volumes:
     - mqs-influxdb-data:/var/lib/influxdb2
-
+      
   mqs-grafana:
-    image: grafana/grafana-oss:9.5.3
+    image: grafana/grafana-enterprise
     container_name: mqs-grafana
-    ports:
-      - 3000:3000
     restart: unless-stopped
-    networks:
-      - mqs-infra
+    environment:
+     - GF_INSTALL_PLUGINS=grafana-clock-panel
+    ports:
+     - '3000:3000'
     volumes:
-      - ./grafana:/var/lib/grafana
+     - 'mqs-grafana_storage:/var/lib/grafana'
 
   mqs-node-red:
     image: nodered/node-red:latest
@@ -61,6 +61,7 @@ services:
 volumes:
   mqs-node-red-data:
   mqs-influxdb-data:
+  mqs-grafana_storage: {}
 
 networks:
   mqs-infra: null
