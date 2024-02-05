@@ -22,6 +22,7 @@ services:
     container_name: mqs-grafana
     ports:
       - 3000:3000
+    restart: unless-stopped
     networks:
       - mqs-infra
     volumes:
@@ -34,6 +35,7 @@ services:
       - TZ=Europe/Moscow
     ports:
       - "1880:1880"
+    restart: unless-stopped
     networks:
       - mqs-infra
     volumes:
